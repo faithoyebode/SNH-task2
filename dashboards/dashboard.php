@@ -1,10 +1,24 @@
 <?php 
     if(!isset($_SESSION['loggedIn'])){
         //redirect to dashboard
-        header("Location: login.php");
+        header("Location: ../login.php");
     }
 ?>
-    <h3><?php echo$_SESSION['role']?> Dashboard</h3>
+    <h3 class="pt-5"><?php echo$_SESSION['role']?> Dashboard</h3>
+    <p>
+        <?php
+            if(isset($_SESSION['error']) && !empty($_SESSION['error'])){
+                echo "<span style='color:red'>" . $_SESSION['error'] . "</span>";
+            }
+        ?>
+    </p>
+    <p>
+        <?php
+            if(isset($_SESSION['message'])){
+                echo "<span style='color:green'>" . $_SESSION['message'] . "</span>";
+            }
+        ?>
+    </p>
     <p>Welcome, <?php echo $_SESSION['fullname']?>,  You are logged in.</p>
     <p> 
         User Access Level : <?php echo$_SESSION['role']?> <br /> ID is <?php echo $_SESSION['loggedIn']?>.

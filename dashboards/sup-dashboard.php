@@ -1,5 +1,5 @@
 <?php 
-    include_once('lib/header.php');
+    include_once('../lib/header.php');
     function addUser(){
         $_SESSION['addUser'] = true;
     }
@@ -15,11 +15,15 @@
     include_once('dashboard.php');
 ?>
 <form method="POST" action="adduser.php">
-<p style="margin-top : 50px; margin-bottom : 50px;  display: inline-block;">
-    <button type="submit" name="submit" style="border: none; color: white; background-color: red; padding: 10px;">Add Users</button>
+<p style="margin-top : 30px; margin-bottom : 30px;  display: inline-block;">
+    <button type="submit" name="submit" class="btn btn-warning">Add Users</button>
 </p>
 </form>
-
+<p>
+    <?php
+        include_once('../viewusers.php');
+    ?>
+</p>
 <?php
-    include_once('lib/footer.php');
+    include_once('../lib/footer.php');
 ?>

@@ -1,5 +1,6 @@
 <?php session_start(); 
     $errorCount = 0;
+    //Assign variables to user inputs
     $email = $_POST['email'] != "" ? $_POST['email'] : $errorCount++;
     $password = $_POST['password'] != "" ? $_POST['password'] : $errorCount++;
     $_SESSION['email'] = $email; 
@@ -11,17 +12,19 @@
             $session_error .= "s";
         }
         $session_error .= " in your form submission";
+        //session_error indicates number of blank fields
         $_SESSION["error"] = $session_error;
-        header("Location: login.php");
+        header("Location: ../login.php");
     }else{
         // this section processes all the fields if there is no blank one on input
-        $allUsers = scandir("db/users/");
+        //get all the user files in the database as an array
+        $allUsers = scandir("../db/users/");
         $countAllUsers = count($allUsers);
         for ($counter=0; $counter < $countAllUsers; $counter++){
             $currentUser = $allUsers[$counter];
             if($currentUser == $email . ".json"){
                 //check user password
-                $userString=file_get_contents("db/users/" .$currentUser);
+                $userString=file_get_contents("../db/users/" .$currentUser);
                 $userObject = json_decode($userString);
                 $passwordFromDB = ($userObject->password);
                 $passwordFromUser = password_verify($password, $passwordFromDB);
@@ -42,15 +45,15 @@
                     //Record New Last Login Time and Date
                     $userObject->lastLogTime = $loginTime;
                     $userObject->lastLogDate = $loginDate;
-                    file_put_contents("db/users/" . $currentUser, json_encode($userObject));
+                    file_put_contents("../db/users/" . $currentUser, json_encode($userObject));
                     if($_SESSION['role']=='Medical Team (MT)'){
-                        header("Location: med-dashboard.php");
+                        header("Location: ../dashboards/med-dashboard.php");
                         die();
                     }elseif($_SESSION['role']=='Patients'){
-                        header("Location: pat-dashboard.php");
+                        header("Location: ../dashboards/pat-dashboard.php");
                         die();
                     }elseif($_SESSION['role']=='Super Admin'){
-                        header("Location: sup-dashboard.php");
+                        header("Location: ../dashboards/sup-dashboard.php");
                         die();
                     }
                     
@@ -60,7 +63,7 @@
             }
         }
         $_SESSION['error'] = "Invalid Email or Password" ;
-        header("Location: login.php");
+        header("Location: ../login.php");
         die();
     }
 ?>

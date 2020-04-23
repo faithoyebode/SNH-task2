@@ -3,7 +3,7 @@
 ?>
     <h3>Forgot password </h3>
     <p>Provide the email address associated with your account</p>
-    <form action="processforgot.php" method="POST">
+    <form action="processes/processforgot.php" method="POST">
         <p>
             <?php
                 if(isset($_SESSION['error']) && !empty($_SESSION['error'])){
@@ -24,7 +24,7 @@
             type="text" name="email" placeholder="Email"/>
         </p>
         <p>
-            <button type="submit">Reset Code</button>
+            <button type="submit">Send Reset Code</button>
         </p>
     </form>
 <?php 

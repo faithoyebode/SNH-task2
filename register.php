@@ -1,14 +1,15 @@
 <?php include_once('lib/header.php');
-//if(isset($_SESSION['loggedIn']) && isset($_SESSION['addUser'])){
-    
-     
-//}
+
+//If the user is logged in, and  is not trying to add another user as a super admin
 if(isset($_SESSION['loggedIn']) && !isset($_SESSION['addUser'])){
     //redirect to dashboard
-    header("Location: dashboard.php");
+    header("Location: dashboards/dashboard.php");
 }
-?>
-    <p><strong><?php if(isset($_SESSION['addUser'])){
+?>  <!-- page title -->
+    <p class="pt-5"><strong><?php 
+            //If the superadmin is trying to add another user, The title of the page will be add user
+            // Else it will be "Welcome, Please Register"
+            if(isset($_SESSION['addUser'])){
                 echo "Add User";
             }else{
                 echo "Welcome, Please Register";
@@ -16,7 +17,8 @@ if(isset($_SESSION['loggedIn']) && !isset($_SESSION['addUser'])){
         </strong></p>
     <p>All fields are required </p>
 
-    <form method="POST" action="processregister.php">
+   <!-- page form field --> 
+    <form method="POST" action="processes/processregister.php" class="w-50">
         <p>
             <?php
                 if(isset($_SESSION['error']) && !empty($_SESSION['error'])){
@@ -24,7 +26,7 @@ if(isset($_SESSION['loggedIn']) && !isset($_SESSION['addUser'])){
                 }
             ?>
         </p>
-        <p>
+        <p class="form-group">
             <?php
             /********************** 
              * FIRST NAME;
@@ -37,7 +39,7 @@ if(isset($_SESSION['loggedIn']) && !isset($_SESSION['addUser'])){
                    echo "value=" . $_SESSION['first_name'];
                 }
             ?>
-            type="text" name="first_name" placeholder="First Name"/>
+            type="text" name="first_name" placeholder="First Name" class="form-control mt-n1"/>
             <p>
                 <?php
                     if(isset($_SESSION['noNumber'])){
@@ -60,7 +62,7 @@ if(isset($_SESSION['loggedIn']) && !isset($_SESSION['addUser'])){
                 ?>
             </p>
         </p>
-        <p>
+        <p class="form-group">
         <?php
             /********************** 
              * LAST NAME;
@@ -73,7 +75,7 @@ if(isset($_SESSION['loggedIn']) && !isset($_SESSION['addUser'])){
                    echo "value=" . $_SESSION['last_name'];
                 }
             ?>
-            type="text" name="last_name" placeholder="Last Name"/>
+            type="text" name="last_name" placeholder="Last Name" class="form-control mt-n1"/>
         </p>
         <p>
                 <?php
@@ -97,7 +99,7 @@ if(isset($_SESSION['loggedIn']) && !isset($_SESSION['addUser'])){
                 ?>
             </p>
         </p>
-        <p>
+        <p class="form-group">
         <?php
             /********************** 
              * E--MAIL;
@@ -110,7 +112,7 @@ if(isset($_SESSION['loggedIn']) && !isset($_SESSION['addUser'])){
                    echo "value=" . $_SESSION['email'];
                 }
             ?>
-            type="text" name="email" placeholder="Email"/ autocomplete="off">
+            type="text" name="email" placeholder="Email"/ autocomplete="off" class="form-control mt-n1">
             <p>
                 <?php
                     if(isset($_SESSION['invalidMail'])){
@@ -145,13 +147,13 @@ if(isset($_SESSION['loggedIn']) && !isset($_SESSION['addUser'])){
              * END OF E--MAIL;
              * *******************/
         ?>
-        <p>
+        <p class="form-group">
             <label>Password</label><br />
-            <input type="password" name="password" placeholder="Password" autocomplete="off"/>
+            <input type="password" name="password" placeholder="Password" autocomplete="off" class="form-control mt-n1"/>
         </p>
-        <p>
+        <p class="form-group">
             <label>Gender</label><br />
-            <select name="gender" >
+            <select name="gender" class="form-control mt-n1">
             <?php
                 if(isset($_SESSION['department'])){
                    echo "value=" . $_SESSION['department'];
@@ -172,9 +174,9 @@ if(isset($_SESSION['loggedIn']) && !isset($_SESSION['addUser'])){
                 }
                 ?>>Male</option>
             </select>
-        <p>
+        <p class="form-group">
             <label>Designation</label><br />
-            <select name="designation">
+            <select name="designation" class="form-control mt-n1">
                 <option value="">Select One</option>
                 <option
                 <?php
@@ -199,7 +201,7 @@ if(isset($_SESSION['loggedIn']) && !isset($_SESSION['addUser'])){
                 >Super Admin</option>
             </select>
         </p>
-        <p>
+        <p class="form-group">
             <label>Department</label><br />
             <input 
             <?php
@@ -207,10 +209,10 @@ if(isset($_SESSION['loggedIn']) && !isset($_SESSION['addUser'])){
                    echo "value=" . $_SESSION['department'];
                 }
             ?>
-            type="text" name="department" placeholder="Department"/>
+            type="text" name="department" placeholder="Department" class="form-control mt-n1"/>
         </p>
         <p>
-            <button type="submit"><?php if(isset($_SESSION['addUser'])){
+            <button type="submit" class="form-control btn btn-danger"><?php if(isset($_SESSION['addUser'])){
                 echo "Add User";
             }else{
                 echo "Register";
